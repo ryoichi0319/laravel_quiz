@@ -38,6 +38,9 @@ public function store(Request $request)
     $validated = $request->validate([
         'user_choice' => 'required',
         'quiz_id'     => 'required|exists:quizzes,id',
+    ],[
+        'user_choice.required' => '選択してください',
+
     ]);
     $userId = auth()->id(); // ユーザーIDを取得
     
@@ -54,11 +57,12 @@ public function store(Request $request)
     
     session(['quiz_id' => $validated['quiz_id']]);
 
-    session(['user_choice' => $validated['user_choice']]) ;
+    session(['user_choice' => $validated['user_choice']]);
 
 
     return redirect()->route('quiz.show',['quiz' => $validated['quiz_id']])
-    ->with('message', ['type_correct' => '正解です','type_incorrect'=>'不正解です', 'content' => '保存しました。']);
+    ->with('message', ['type_correct' => '正解です','type_incorrect'=>'不正解です',
+     'content' => '保存しました。']);
 
 }
 // public function destroy(Request $request, Answer $answer)

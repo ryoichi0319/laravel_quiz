@@ -68,14 +68,26 @@
                         @endphp
                       
                     </div>
+
+                <x-input-error :messages="$errors->get('user_choice')" class="p-3"/>
                 <x-primary-button :disabled="$disabled">
                     回答する
                 </x-primary-button>
                 </div>
-            
+                <div>
+                正解数:
+                <span class=" font-bold">
                 {{$correct_user_choice}}
+                </span>
+                </div>
 
             </form>
+           
+
+
+
+
+
             @if ($next_quiz &&  session('quiz_id') == $quiz->id)
             <a href="{{ route('quiz.show', $next_quiz) }}">
             <div class=" mt-3 text-right mr-18">
