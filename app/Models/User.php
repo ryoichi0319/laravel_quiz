@@ -24,6 +24,9 @@ class User extends Authenticatable
      public function answers(){
         return $this->hasMany(Answer::class);
     }
+    public function quiz(){
+        return $this->hasMany(Quiz::class);
+    }
     protected $fillable = [
         'name',
         'email',

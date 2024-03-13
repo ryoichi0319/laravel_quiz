@@ -26,8 +26,11 @@ Route::resource('post', PostController::class);
 Route::resource('answer',AnswerController::class);
 Route::resource('quiz',QuizController::class);
 
-Route::get('quiz/result', [QuizController::class, 'result'])->name('quiz.result');
-
+Route::get('/result', [QuizController::class, 'result'])->name('result');
+Route::get('answers/{quiz}',[AnswerController::class,'show'])->name('answer.show');
+Route::delete('answers/{quiz}', [AnswerController::class, 'destroy'])->name('answer.destroy');
+Route::delete('answers', [AnswerController::class, 'destroyAll'])->name('all_answer.destroy');
+Route::get('/start',[QuizController::class,'start'])->name('start');
 
 // Route::get('/test',[TestController::class, 'test'])->name('test');
 

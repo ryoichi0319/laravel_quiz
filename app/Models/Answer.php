@@ -7,17 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_choice',
         'user_id',
         'quiz_id',
         'correct_user_choice'
     ];
-   public function quizzes(){
-    return $this->hasMany(Quiz::class);
-   }
-   public function user(){
-    return $this->belongsTo(User::class);
-   }
-    use HasFactory;
+
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

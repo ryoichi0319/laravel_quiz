@@ -21,20 +21,20 @@
             <form method="POST" action="{{ route('answer.store') }}">
                 @csrf
 
-                @if (session('message') && isset(session('message')['content'])
+                @if (session('message') && (session('message')['content'])
                  && $quiz->id == session('quiz_id'))
                 {{-- {{ session('message')['content'] }} --}}
                    <x-message :message="session('message')['content']" />
                 @endif
                 
-                @if (session('message') && isset(session('message')['type_correct'])
+                @if (session('message') && (session('message')['type_correct'])
                  && $quiz->answer_number == session('user_choice') && $quiz->id == session('quiz_id'))
 
                     {{-- 回答が正しい場合のメッセージ表示 --}}
                     <x-message :message="session('message')['type_correct']" />
                     {{-- {{session('message')['type_correct']}} --}}
 
-                @elseif (session('message') && isset(session('message')['type_incorrect'])
+                @elseif (session('message') && (session('message')['type_incorrect'])
                  && $quiz->answer_number != session('user_choice') && $quiz->id == session('quiz_id'))
 
                      <x-message :message="session('message')['type_incorrect']" />
@@ -63,6 +63,7 @@
                 <div class=" mt-3 text-right mr-18">
                     <div class=" mt-3 text-right mr-18">
                         @php
+                        
                         $disabled = session()->has('quiz_id') && session('quiz_id') == $quiz->id;
                         @endphp
                       
@@ -79,15 +80,33 @@
             <a href="{{ route('quiz.show', $next_quiz) }}">
             <div class=" mt-3 text-right mr-18">
                 <x-secondary-button>次へ</x-secondary-button>
+               
             </div>
             </a>
+            <form method="post" action="{{route('answer.destroy', $quiz)}}" class="">
+                @csrf
+                @method('delete')
+                <div class=" mt-3 text-right mr-18">
+            <x-danger-button>削除</x-danger-button>
+                </div>
+            </form>
+           
             @elseif(!$next_quiz && session('quiz_id') == $quiz->id)
-            <a href="{{ route('quiz.create') }}">
+            <form method="post" action="{{route('answer.destroy', $quiz)}}" class="">
+                @csrf
+                @method('delete')
+                <div class=" mt-3 text-right mr-18">
+            <x-danger-button>削除</x-danger-button>
+                </div>
+            </form>
+          
+            <a href="{{ route('result') }}">
                 <div class=" mt-3 text-right mr-18">
                     <x-secondary-button>結果</x-secondary-button>
                 </div>
                 </a>
             @endif
+
             
         </div>
 </x-app-layout>

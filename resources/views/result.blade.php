@@ -24,6 +24,23 @@
      
             
         @endif
+
+        <form method="POST" action="{{ route('all_answer.destroy') }}" class="">
+            @csrf
+            @method('delete')
+            <div class="mt-3 text-right mr-18">
+                <x-danger-button>削除</x-danger-button>
+            </div>
+
+        </form>
+       
+        <x-message :message="session('message')" />
+
+        
     </div>
+    
+    <a href="{{route('start')}}" class="mt-3 p-3 block text-right">
+        <x-primary-button>スタートへ</x-primary-button>
+    </a>
     </div>
 </x-app-layout>
