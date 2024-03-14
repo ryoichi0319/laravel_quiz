@@ -6,7 +6,8 @@ use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\AnswerController;
-
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\DownloadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +26,9 @@ Route::get('/', function () {
 Route::resource('post', PostController::class);
 Route::resource('answer',AnswerController::class);
 Route::resource('quiz',QuizController::class);
+Route::resource('image',ImageController::class);
+
+Route::get('/download', [DownloadController::class, 'index']);
 
 Route::get('/result', [QuizController::class, 'result'])->name('result');
 Route::get('answers/{quiz}',[AnswerController::class,'show'])->name('answer.show');
