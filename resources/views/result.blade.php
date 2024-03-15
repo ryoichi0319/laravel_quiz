@@ -33,6 +33,13 @@
             </div>
 
         </form>
+
+        <form method="POST" action="{{route('send_mail')}}" class="">
+            @csrf
+            <input type="hidden" name="user_correct_choices" value="{{ $user_correct_choices }}">
+            <input type="hidden" name="total_quiz" value="{{ $total_quiz }}">
+            <button type="submit">送信</button>
+        </form>
        
         <x-message :message="session('message')" />
 
