@@ -37,11 +37,11 @@ Route::delete('answers/{quiz}', [AnswerController::class, 'destroy'])->name('ans
 Route::delete('answers', [AnswerController::class, 'destroyAll'])->name('all_answer.destroy');
 Route::get('/start',[QuizController::class,'start'])->name('start');
 
-Route::post('/send_mail', [MailController::class, 'sendMail'])->name('send_mail');
+Route::post('/send_mail', [MailController::class, 'send_mail'])->name('send_mail');
 Route::get('emails/mailgun_test', [MailController::class, 'mail']);
 
 
-// Route::get('/test',[TestController::class, 'test'])->name('test');
+Route::get('/test',[TestController::class, 'test'])->name('test');
 
 // Route::get('post/show/{post}',[PostController::class,'show'])->name('post.show');
 

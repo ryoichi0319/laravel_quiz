@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends Controller
 {
+    protected $answers;
+    public function __construct(){
+        $this->answers = Answer::all();
+    }
+
     public function index()
     {
-        //
-        // $posts=Post::all();
-        $answers = Answer::all();
+        $answers = $this->answers;
         return view('answer.index',compact('answers'));
     }
     // public function store(Request $request)
@@ -46,7 +49,7 @@ public function store(Request $request)
     
     $quiz = Quiz::findOrFail($validated['quiz_id']);
     
-    $correct_user_choice = $validated['user_choice'] == $quiz->answer_number ? 1 : 0;
+    $correct_user_choice = ($validated['user_choice'] == $quiz->answer_number && $userId) ? 1 : 0;
 
     $answer = Answer::create([
         'user_choice' => $validated['user_choice'],
@@ -81,7 +84,7 @@ public function show($id)
 public function destroy(Quiz $quiz)
 {
     // 指定されたクイズに関連する全ての回答を取得する
-    $answers = $quiz->answers;
+    $answers = $this->answers;
 
     // 全ての回答を削除する
     foreach ($answers as $answer) {
@@ -105,7 +108,7 @@ public function destroyAll()
     });
 
     // メッセージをリダイレクトで返す
-    return redirect()->back()->with('message','削除しました。');
+    return redirect()->back()->with('message','削除しました');
 }
 
     //

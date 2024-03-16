@@ -12,14 +12,15 @@ class MailgunTest extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name; // プロパティとして定義する
-
+    protected $name; // プロパティとして定義する
+    protected $user_correct_choices;
     /**
      * Create a new message instance.
      */
-    public function __construct($name)
+    public function __construct($name,$user_correct_choices)
     {
         $this->name = $name; // コンストラクターで変数を受け取り、プロパティに設定する
+        $this->user_correct_choices = $user_correct_choices;
     }
     // public function getName() {
     //     return $this->name;
@@ -59,11 +60,12 @@ class MailgunTest extends Mailable
     }
 
     public function build()
-    {   
-        
-        return $this->from('mailgun@sandbox7fa7c57d28814ee6933df915a77df2ee.mailgun.org', 'Excited User')
+{   
+    return $this->from('mailgun@sandbox7fa7c57d28814ee6933df915a77df2ee.mailgun.org', 'Excited User')
         ->subject('Hello')
-        ->view('emails.mailgun_test')
-        ->with(['name' => $this->name,]);
-    }
+        ->view('emails.mailgun_test', [
+            'name' => $this->name,
+            'user_correct_choices' => $this->user_correct_choices
+        ]);
+}
 }

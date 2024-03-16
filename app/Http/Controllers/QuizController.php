@@ -7,15 +7,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // Authを追加
 
 class QuizController extends Controller
-{
+{   
+    protected $total_quiz; // クラスプロパティとして定義
+    protected $quiz;
+    public function __construct( ) {
+        $this->total_quiz = Quiz::count();
+        $this->quiz = Quiz::with('answers')->get();
+
+    }
+    
+
+
     public function create(){
         $user = Auth::user();
         // ユーザーごとの正解数を取得する
         $user_correct_choices = Answer::where('correct_user_choice', 1)
             ->where('user_id', $user->id)
             ->count();
-        $total_quiz = Quiz::count();
-        $quiz = Quiz::with('answers')->get();
+        $total_quiz = $this->total_quiz;
+        $quiz = $this->quiz;
         $quiz_answers = [];
 
         foreach ($quiz as $q) {
@@ -65,18 +75,20 @@ $user = Auth::user();
         $user_correct_choices = Answer::where('correct_user_choice', 1)
             ->where('user_id', $user->id)
             ->count();
-        $total_quiz = Quiz::count();
-        $quiz = Quiz::with('answers')->get();
-        $quiz_answers = [];
+            $total_quiz = $this->total_quiz;
+            $quiz = $this->quiz;
+            // $quiz_answers = [];
 
-        foreach ($quiz as $q) {
-            $quiz_answers[$q->id] = $q->answers;
-        }
-        return view('result', compact('user_correct_choices','total_quiz','quiz_answers'));
+        // foreach ($quiz as $q) {
+        //     $quiz_answers[$q->id] = $q->answers;
+        // }
+        return view('result', compact('user_correct_choices','total_quiz'));
     
     }
     public function start(){
-        return view('start',);
+        $total_quiz = $this->total_quiz;
+
+        return view('start',compact('total_quiz'));
     }
 
 

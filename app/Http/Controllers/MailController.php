@@ -1,28 +1,37 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailgunTest;
+use App\Models\Answer;
+use Illuminate\Support\Facades\Auth; // Authを追加
 
 class MailController extends Controller
 {
-    public function sendMail()
+    public function send_mail()
     {
-        $name = 'John Doe'; // ビューに渡す変数
+        $user = Auth::user();
+        $user_correct_choices = Answer::where('correct_user_choice', 1)
+            ->where('user_id', $user->id)
+            ->count();
 
-        Mail::to('losegroove31@gmail.com')->send(new MailgunTest($name));
+        $name = $user->name;
+        Mail::to('losegroove31@gmail.com')->send(new MailgunTest($name, $user_correct_choices));
        
-        return 'メールを送信しました。';
+        return back()->with('message','送信しました');
     }
+
     public function mail()
-    {   
+    {  
+        $user = Auth::user();
+        $user_correct_choices = Answer::where('correct_user_choice', 1)
+            ->where('user_id', $user->id)
+            ->count();
 
-
-        $name = 'John Doe'; // ビューに渡す変数
+        $name = $user->name;
 
         // 第二引数に変数を渡してビューを返す
-        return view('emails.mailgun_test', compact('name'));
+        return view('emails.mailgun_test', compact('name', 'user_correct_choices'));
     }
 }
