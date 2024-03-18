@@ -15,4 +15,16 @@
 - 結果ページで結果をメールで送信できる(非同期) mailgun
 
  
- 
+## テーブル
+- answers
+- quizzes
+- users
+
+## コントローラー
+- AnswerController
+- QuizController
+- MailController
+
+## route
+- login -> /start -> quiz/{quiz} -> quiz/{quiz}  ... ->   /result -> mail送信
+-                    answer/storeに保存                               /send_mailに保存

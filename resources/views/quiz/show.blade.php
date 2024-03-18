@@ -99,7 +99,7 @@
                 @csrf
                 @method('delete')
                 <div class=" mt-3 text-right mr-18">
-            <x-danger-button>削除</x-danger-button>
+            <x-danger-button>この問題の答えを削除</x-danger-button>
                 </div>
             </form>
            
@@ -108,7 +108,7 @@
                 @csrf
                 @method('delete')
                 <div class=" mt-3 text-right mr-18">
-            <x-danger-button>削除</x-danger-button>
+            <x-danger-button>この問題の答えを削除</x-danger-button>
                 </div>
             </form>
           

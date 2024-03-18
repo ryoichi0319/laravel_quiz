@@ -89,6 +89,11 @@ public function destroy(Quiz $quiz)
 
     // 指定されたクイズに合うquiz_idの回答を取得する
     $answers = $quiz->answers()->where('quiz_id', $quiz->id)->where('user_id', $user_id)->get();
+
+    // ユーザーが自分の回答以外の回答を削除しようとした場合の処理
+    if ($answers->isEmpty()) {
+        return redirect()->back()->with('error', '他のユーザーの回答を削除することはできません。');
+    }
  
     // quiz_idに合う回答を削除する
     foreach ($answers as $answer) {

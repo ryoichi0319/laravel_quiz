@@ -15,14 +15,14 @@
                 /{{ $total_quiz }}問でした！</p>
             </p>
             @if ($user_correct_choices == $total_quiz)
-                <p class="p-3 text-yellow-500">おめでとうございます。満点です！！</p>
+                <p class="p-3 text-yellow-500">満点です！！</p>
             @endif
 
             <form method="POST" action="{{ route('all_answer.destroy') }}" class="">
                 @csrf
                 @method('delete')
                 <div class="mt-3 text-right mr-18">
-                    <x-danger-button>削除</x-danger-button>
+                    <x-danger-button>全ての答えを削除</x-danger-button>
                 </div>
             </form>
 
@@ -30,10 +30,10 @@
                 @csrf
                 @php
                 $disabled = session()->has('message') && session('message') == '送信しました'
-     
                 @endphp
-                <input type="hidden" name="user_correct_choices" value="{{ $user_correct_choices }}">
-                <input type="hidden" name="total_quiz" value="{{ $total_quiz }}">
+                {{--ユーザーが選んだ答えとクイズの総数をmailcontrollerにpost--}}
+                {{-- <input type="hidden" name="user_correct_choices" value="{{ $user_correct_choices }}">
+                <input type="hidden" name="total_quiz" value="{{ $total_quiz }}"> --}}
                 <x-primary-button id="sendMailButton" color='blue' type="submit" class="ml-3" :disabled="$disabled" >送信</x-primary-button>
                 {{-- @if(session('message'))
                     <div>{{ session('message') }}</div>
