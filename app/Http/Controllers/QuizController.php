@@ -19,7 +19,7 @@ class QuizController extends Controller
         //リレーション先のデータもあらかじめ取得 quizzesテーブル、answersテーブルのデータ取得
         $this->quiz = Quiz::with('answers')->get();
 
-        dump($this->quiz);
+        // dump($this->quiz);
 
         // Log::info($this->quiz); // 情報ログ
 
@@ -37,7 +37,7 @@ class QuizController extends Controller
             ->count();
         $total_quiz = $this->total_quiz;
         $quiz = $this->quiz;
-        
+
         $quiz_answers = [];
 
         foreach ($quiz as $q) {
@@ -82,19 +82,19 @@ $user = Auth::user();
     }
 
     public function result(){
-        $user = Auth::user();
-        // ユーザーごとの正解数を取得する
-        $user_correct_choices = Answer::where('correct_user_choice', 1)
-            ->where('user_id', $user->id)
-            ->count();
-            $total_quiz = $this->total_quiz;
-            $quiz = $this->quiz;
-            // $quiz_answers = [];
+        // $user = Auth::user();
+        // // ユーザーごとの正解数を取得する
+        // $user_correct_choices = Answer::where('correct_user_choice', 1)
+        //     ->where('user_id', $user->id)
+        //     ->count();
+        //     $total_quiz = $this->total_quiz;
+        //     $quiz = $this->quiz;
+        //     // $quiz_answers = [];
 
-        // foreach ($quiz as $q) {
-        //     $quiz_answers[$q->id] = $q->answers;
-        // }
-        return view('result', compact('user_correct_choices','total_quiz'));
+        // // foreach ($quiz as $q) {
+        // //     $quiz_answers[$q->id] = $q->answers;
+        // // }
+        // return view('result', compact('user_correct_choices','total_quiz'));
     
     }
     public function start(){
