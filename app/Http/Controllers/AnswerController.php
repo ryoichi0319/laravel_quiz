@@ -85,10 +85,12 @@ public function show($id)
 }
 public function destroy(Quiz $quiz)
 {
-    // 指定されたクイズに関連する全ての回答を取得する
-    $answers = $this->answers;
+    $user_id = auth()->id(); // ユーザーIDを取得
 
-    // 全ての回答を削除する
+    // 指定されたクイズに合うquiz_idの回答を取得する
+    $answers = $quiz->answers()->where('quiz_id', $quiz->id)->where('user_id', $user_id)->get();
+ 
+    // quiz_idに合う回答を削除する
     foreach ($answers as $answer) {
         $answer->delete();
         
@@ -101,8 +103,12 @@ public function destroy(Quiz $quiz)
 }
 public function destroyAll()
 {
+    $user_id = auth()->id(); // ユーザーIDを取得
+
+
     // 全ての回答を取得する
-    $answers = Answer::all();
+    $answers = Answer::where('user_id', $user_id)->get();
+
 
     // 全ての回答を削除する
     $answers->each(function ($answer) {
