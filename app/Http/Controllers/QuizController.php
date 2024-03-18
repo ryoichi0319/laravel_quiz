@@ -5,14 +5,24 @@ use App\Models\Quiz;
 use App\Models\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // Authを追加
+use Illuminate\Support\Facades\Log;
+
 
 class QuizController extends Controller
 {   
-    protected $total_quiz; // クラスプロパティとして定義
+     
+    protected $total_quiz; 
     protected $quiz;
     public function __construct( ) {
         $this->total_quiz = Quiz::count();
+
+        //リレーション先のデータもあらかじめ取得 quizzesテーブル、answersテーブルのデータ取得
         $this->quiz = Quiz::with('answers')->get();
+
+        dump($this->quiz);
+
+        // Log::info($this->quiz); // 情報ログ
+
 
     }
     
@@ -20,12 +30,14 @@ class QuizController extends Controller
 
     public function create(){
         $user = Auth::user();
+
         // ユーザーごとの正解数を取得する
         $user_correct_choices = Answer::where('correct_user_choice', 1)
             ->where('user_id', $user->id)
             ->count();
         $total_quiz = $this->total_quiz;
         $quiz = $this->quiz;
+        
         $quiz_answers = [];
 
         foreach ($quiz as $q) {

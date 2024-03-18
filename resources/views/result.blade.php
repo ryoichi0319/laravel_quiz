@@ -26,15 +26,27 @@
                 </div>
             </form>
 
-            <form method="POST" action="{{ route('send_mail') }}" class="">
+            <form method="POST" id="sendMailForm" action="{{ route('send_mail') }}" class="">
                 @csrf
+                @php
+                $disabled = session()->has('message') && session('message') == '送信しました'
+     
+                @endphp
                 <input type="hidden" name="user_correct_choices" value="{{ $user_correct_choices }}">
                 <input type="hidden" name="total_quiz" value="{{ $total_quiz }}">
-                <x-primary-button  color='blue' type="submit" class="ml-3">送信</x-primary-button>
+                <x-primary-button id="sendMailButton" color='blue' type="submit" class="ml-3" :disabled="$disabled" >送信</x-primary-button>
                 {{-- @if(session('message'))
                     <div>{{ session('message') }}</div>
                 @endif --}}
             </form>
+
+            <script>
+                document.getElementById('sendMailForm').addEventListener('submit', function(event) {
+                    // フォームが送信されたときに実行される関数
+                    // ボタンを無効にする
+                    document.getElementById('sendMailButton').disabled = true;
+                });
+            </script>
 
        
             <x-message :message="session('message')" />

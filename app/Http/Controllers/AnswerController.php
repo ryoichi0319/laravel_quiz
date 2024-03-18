@@ -64,8 +64,11 @@ public function store(Request $request)
 
 
     return redirect()->route('quiz.show',['quiz' => $validated['quiz_id']])
-    ->with('message', ['type_correct' => '正解です','type_incorrect'=>'不正解です',
-     'content' => '保存しました。']);
+                        ->with('message',[
+                            'type_correct' => '正解です',
+                            'type_incorrect'=>'不正解です',
+                            'content' => '保存しました。'
+                        ]);
 
 }
 // public function destroy(Request $request, Answer $answer)
@@ -79,7 +82,6 @@ public function store(Request $request)
 public function show($id)
 {     $answer = Quiz::find($id);
 
-    // ロジックを実装する
 }
 public function destroy(Quiz $quiz)
 {

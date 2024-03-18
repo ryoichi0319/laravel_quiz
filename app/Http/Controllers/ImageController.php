@@ -23,9 +23,10 @@ class ImageController extends Controller
     //$request->file('file')->storeAs('/img','いちご.jpg');
     
     //元々の名前をつけて保存
-    //$file_name = $request->file('file')->getClientOriginalName();
-    //$request->file('file')->storeAs('/img',$file_name);
+    $file_name = $request->file('file')->getClientOriginalName();
+    $request->file('file')->storeAs('/img',$file_name);
 
+    //複数ファイル
     // $files = $request->file('file');
     // foreach($files as $file){
     //   $file_name = $file->getClientOriginalName();
@@ -43,7 +44,7 @@ class ImageController extends Controller
     // Storage::putFile('',$request->file('file'));
 
 
-    $file_name = $request->file('file')->getClientOriginalName();
+    // $file_name = $request->file('file')->getClientOriginalName();
 
     //putメソッドによってもファイルの保存。file_get_contents関数を使い文字列としてファイル内容の読み込みを行っています。
     // Storage::put($file_name,file_get_contents($request->file('file')->getRealPath()));

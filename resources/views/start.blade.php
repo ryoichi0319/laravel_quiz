@@ -16,9 +16,20 @@
            
 
         <a href="{{ route('quiz.show', ['quiz' => 1]) }}" >
+            <div class=" gap-3 flex ">
         <x-primary-button>
         スタート
       </x-primary-button>
+      
+      @if(Auth::user()->role == 'admin')
+      <a href="http://localhost:8080">
+            <x-secondary-button>
+                クイズを作る
+            </x-secondary-button>
+        </a>
+      @endif
+      </div>
+
     </a>
     </a>
         

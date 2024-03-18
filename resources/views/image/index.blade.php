@@ -13,7 +13,9 @@
     <input type="file" id="file" name="file[]" class="form-control" multiple> --}}
     <button type="submit">アップロード</button>
 
+    {{--/storage/app/pubicにある--}}
     <a href="/storage/3.jpg">アップロードファイル</a>
+    
     <a href="/download">profile</a>
 
   </form>
