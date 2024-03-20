@@ -67,6 +67,8 @@ class QuizController extends Controller
     public function show($id)
     {   $quiz = Quiz::find($id);
         // $currentIndex = Quiz::where('id', '<', $quiz->id)->max('id'); // 現在のクイズの直前のクイズのIDを取得
+
+        //現在のクイズidを取得してそのidよりも大きい最初のidのレコードを取得
         $next_quiz = Quiz::where('id', '>', $quiz->id)->first();
         $answer_number = $quiz->answer_number;
         $user = Auth::user();
@@ -76,7 +78,7 @@ class QuizController extends Controller
         ->count();
        
        
-$user = Auth::user();
+       $user = Auth::user();
 
         return view('quiz.show', compact('quiz', 'next_quiz','user','correct_user_choice'));
     }
