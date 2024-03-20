@@ -1,7 +1,11 @@
  
 # クイズアプリです。
+
+# AWS
+- http://ec2-13-112-58-28.ap-northeast-1.compute.amazonaws.com/ (laravel 10 php 8.2 )
+- http://ec2-13-112-58-28.ap-northeast-1.compute.amazonaws.com/phpMyAdmin で管理できるようにしています。
  
-## docker
+## docker(local)
 * laravel 10 http://localhost トップページ
 * php 8.3
 * phpmyadmin http://localhost:8080
@@ -28,3 +32,4 @@
 ## route
 - login -> /start -> quiz/{quiz} -> quiz/{quiz}  ... ->   /result -> mail送信
 -                    answer/storeに保存                               /send_mailに保存
+
